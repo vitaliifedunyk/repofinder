@@ -7,10 +7,39 @@ const app = document.getElementById("app");
 app.innerHTML = renderLayout();
 
 const usernameInput = document.getElementById("usernameInput");
-const searchBtn = document.getElementById("searchBtn");
 const statusEl = document.getElementById("status");
+const searchForm = document.getElementById("searchForm");
+//   const username = usernameInput.value.trim();
+//   if (!username) {
+//     setState({ status: "error", errorMessage: "Enter GitHub username" });
+//     statusEl.textContent = state.errorMessage;
+//     return;
+//   }
 
-searchBtn.addEventListener("click", async () => {
+//   setState({ username, page: 1, status: "idle", errorMessage: "" });
+//   statusEl.textContent = `Searching for: ${state.username}`;
+
+//   setState({ username, page: 1, status: "loading", errorMessage: "" });
+//   statusEl.textContent = "Loading...";
+
+//   try {
+//     const repos = await fetchRepos({
+//       username: state.username,
+//       page: state.page,
+//       perPage: state.perPage,
+//     });
+
+//     setState({ repos, status: "idle" });
+//     statusEl.textContent = `Loaded ${repos.length} repos`;
+//   } catch (error) {
+//     setState({ status: "error", errorMessage: error.message });
+//     statusEl.textContent = state.errorMessage;
+//   }
+// });
+
+searchForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
   const username = usernameInput.value.trim();
   if (!username) {
     setState({ status: "error", errorMessage: "Enter GitHub username" });
@@ -18,8 +47,7 @@ searchBtn.addEventListener("click", async () => {
     return;
   }
 
-  setState({ username, page: 1, status: "idle", errorMessage: "" });
-  statusEl.textContent = `Searching for: ${state.username}`;
+  statusEl.textContent = "";
 
   setState({ username, page: 1, status: "loading", errorMessage: "" });
   statusEl.textContent = "Loading...";

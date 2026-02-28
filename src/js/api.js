@@ -1,4 +1,4 @@
-export async function fetchRepos({ username, page = 1, perPage = 10 }) {
+export async function fetchRepos({ username, page = 1, perPage = 100 }) {
   const url = new URL(`https://api.github.com/users/${username}/repos`);
   url.searchParams.set("page", page);
   url.searchParams.set("per_page", perPage);

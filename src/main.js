@@ -2,6 +2,7 @@ import "./css/style.css";
 import { renderLayout } from "./js/ui.js";
 import { state, setState } from "./js/state.js";
 import { fetchRepos } from "./js/api.js";
+import { renderStatus } from "./js/ui.js";
 
 const app = document.getElementById("app");
 app.innerHTML = renderLayout();
@@ -43,14 +44,12 @@ searchForm.addEventListener("submit", async (e) => {
   const username = usernameInput.value.trim();
   if (!username) {
     setState({ status: "error", errorMessage: "Enter GitHub username" });
-    statusEl.textContent = state.errorMessage;
+    statusEl.innerHTML = renderStatus(state);
     return;
   }
 
-  statusEl.textContent = "";
-
   setState({ username, page: 1, status: "loading", errorMessage: "" });
-  statusEl.textContent = "Loading...";
+  statusEl.innerHTML = renderStatus(state);
 
   try {
     const repos = await fetchRepos({
@@ -60,9 +59,9 @@ searchForm.addEventListener("submit", async (e) => {
     });
 
     setState({ repos, status: "idle" });
-    statusEl.textContent = `Loaded ${repos.length} repos`;
+    statusEl.innerHTML = renderStatus(state);
   } catch (error) {
     setState({ status: "error", errorMessage: error.message });
-    statusEl.textContent = state.errorMessage;
+    statusEl.innerHTML = renderStatus(state);
   }
 });

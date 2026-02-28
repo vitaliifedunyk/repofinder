@@ -19,9 +19,21 @@ export function renderLayout() {
           Search
         </button>
       </form>
-      <p id="status" class="text-sm text-gray-400 mb-4"></p>
+      <div id="status" class="text-sm text-gray-400 mb-4"></div>
       <div id="repos"></div>  
 
     </div>
   `;
+}
+
+export function renderStatus(state) {
+  if (state.status === "loading") {
+    return `<p class="text-sm text-gray-300">Loading...</p>`;
+  }
+
+  if (state.status === "error") {
+    return `<p class="bg-red-500/10 border border-red-500/30 text-red-200 rounded p-3 text-sm">${state.errorMessage}</p>`;
+  }
+
+  return "";
 }

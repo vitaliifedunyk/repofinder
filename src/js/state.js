@@ -6,6 +6,7 @@ export const state = {
   status: "idle", // 'idle' | 'loading' | 'error'
   errorMessage: "",
 };
+
 export function setState(patch) {
   Object.assign(state, patch);
 }

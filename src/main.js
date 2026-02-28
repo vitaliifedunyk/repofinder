@@ -1,6 +1,7 @@
 import "./css/style.css";
 import { renderLayout } from "./js/ui.js";
 import { state, setState } from "./js/state.js";
+import { fetchRepos } from "./js/api.js";
 
 const app = document.getElementById("app");
 app.innerHTML = renderLayout();

@@ -15,6 +15,8 @@ const reposEl = document.getElementById("repos");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const pageInfo = document.getElementById("pageInfo");
+const paginationEl = document.getElementById("pagination");
+paginationEl.classList.add("hidden");
 
 searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();

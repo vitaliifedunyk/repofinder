@@ -1,7 +1,7 @@
 export const state = {
   username: "",
   page: 1,
-  perPage: 100,
+  perPage: 10,
   repos: [],
   status: "idle", // 'idle' | 'loading' | 'error'
   errorMessage: "",

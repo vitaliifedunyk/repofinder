@@ -12,6 +12,9 @@ const usernameInput = document.getElementById("usernameInput");
 const statusEl = document.getElementById("status");
 const searchForm = document.getElementById("searchForm");
 const reposEl = document.getElementById("repos");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const pageInfo = document.getElementById("pageInfo");
 
 searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -23,8 +26,16 @@ searchForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  setState({ username, page: 1, status: "loading", errorMessage: "" });
+  setState({ username, page: 1 });
+  await loadRepos();
+});
+
+async function loadRepos() {
+  setState({ status: "loading", errorMessage: "" });
+  prevBtn.disabled = true;
+  nextBtn.disabled = true;
   statusEl.innerHTML = renderStatus(state);
+  reposEl.innerHTML = "";
 
   try {
     const repos = await fetchRepos({
@@ -37,7 +48,29 @@ searchForm.addEventListener("submit", async (e) => {
     statusEl.innerHTML = renderStatus(state);
     reposEl.innerHTML = renderRepos(state.repos);
   } catch (error) {
-    setState({ status: "error", errorMessage: error.message });
+    setState({ status: "error", errorMessage: error.message, repos: [] });
     statusEl.innerHTML = renderStatus(state);
+    reposEl.innerHTML = "";
   }
+
+  if (state.username && state.repos.length > 0) {
+    paginationEl.classList.remove("hidden");
+  } else {
+    paginationEl.classList.add("hidden");
+  }
+
+  pageInfo.textContent = `Page ${state.page}`;
+  prevBtn.disabled = state.page === 1;
+  nextBtn.disabled = state.repos.length < state.perPage;
+}
+
+prevBtn.addEventListener("click", async () => {
+  if (state.page === 1) return;
+  setState({ page: state.page - 1 });
+  await loadRepos();
+});
+
+nextBtn.addEventListener("click", async () => {
+  setState({ page: state.page + 1 });
+  await loadRepos();
 });

@@ -20,8 +20,19 @@ export function renderLayout() {
         </button>
       </form>
       <div id="status" class="text-sm text-gray-400 mb-4"></div>
-      <div id="repos" class="flex flex-col gap-4"></div>  
+      <div id="repos" class="flex flex-col gap-4"></div>
+      
+      <div id="pagination" class="mt-6 flex items-center justify-between">
+        <button id="prevBtn" type="button" class="px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 disabled:opacity-40" disabled>
+          Prev
+        </button>
 
+        <span id="pageInfo" class="text-sm text-gray-400">Page 1</span>
+
+        <button id="nextBtn" type="button" class="px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 disabled:opacity-40" disabled>
+          Next
+        </button>
+      </div>
     </div>
   `;
 }
